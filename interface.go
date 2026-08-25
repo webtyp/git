@@ -50,9 +50,20 @@ type GitClient interface {
 	StatusPorcelain() (string, error)
 	DiffShortStat() (string, error)
 	GenerateNextTag() (string, error)
+	IncrementTag(tag string) (string, error)
 	Clone(repoURL string) (alreadyPresent bool, err error)
 	Pull() error
 	Fetch() error
+}
+
+// SumDBClient reports whether a module version was ever indexed by the
+// public Go checksum database (sum.golang.org). A version that appears
+// there was consulted by someone, at some point, possibly with different
+// content than what is about to be tagged now — reusing it risks a
+// "SECURITY ERROR: checksum mismatch" for any consumer building outside
+// GOPRIVATE.
+type SumDBClient interface {
+	Lookup(modulePath, version string) (burned bool, err error)
 }
 
 // Runner abstracts command execution (git, gh, etc.) for testing.
