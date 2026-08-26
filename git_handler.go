@@ -6,9 +6,19 @@ import (
 	"github.com/tinywasm/command"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 )
+
+// floatingMajorAliasPattern matches ONLY a bare "vN" tag — the GitHub Actions
+// convention consumers pin against via `uses: owner/repo@v1` — never a real
+// release tag, malformed or not. It otherwise outranks every "v0.x.y" release
+// under plain version:refname sort (1 > 0), even though the alias has no
+// release of its own behind it. Deliberately narrow: GetLatestTag must still
+// surface a malformed tag like "v1.0.abc" so callers such as GenerateNextTag
+// can reject it loudly, instead of quietly treating the repo as untagged.
+var floatingMajorAliasPattern = regexp.MustCompile(`^v[0-9]+$`)
 
 // ErrDirtyWorkTree is returned by Pull when the working tree has uncommitted changes.
 var ErrDirtyWorkTree = errors.New("cannot pull: working tree has uncommitted changes")
@@ -337,7 +347,7 @@ func (g *Git) DiffShortStat() (string, error) {
 	return strings.TrimSpace(out), nil
 }
 
-// GetLatestTag gets the latest tag
+// GetLatestTag gets the latest release tag (vMAJOR.MINOR.PATCH).
 func (g *Git) GetLatestTag() (string, error) {
 	// Use version:refname sort to get the highest semver tag, not just
 	// the closest reachable tag from HEAD (which git describe does).
@@ -346,11 +356,14 @@ func (g *Git) GetLatestTag() (string, error) {
 		return "", nil
 	}
 
-	// First line = highest version
-	if idx := strings.IndexByte(output, '\n'); idx != -1 {
-		return output[:idx], nil
+	// Skip a floating major-version alias — it sorts above every "v0.x.y" tag
+	// but is not itself a release.
+	for _, line := range strings.Split(output, "\n") {
+		if !floatingMajorAliasPattern.MatchString(line) {
+			return line, nil
+		}
 	}
-	return output, nil
+	return "", nil
 }
 
 // CreateTag creates a new tag

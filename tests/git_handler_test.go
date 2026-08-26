@@ -432,6 +432,35 @@ func TestGetLatestTagSemverOrder(t *testing.T) {
 	}
 }
 
+// TestGetLatestTagIgnoresFloatingMajorAlias reproduces the production bug: a
+// GitHub Actions major-version alias ("v1") sorts above every real release
+// under plain version:refname sort, because 1 > 0. GetLatestTag must skip it
+// and return the highest full release tag instead — the alias has no release
+// of its own, so returning it points a caller (e.g. a fallback download URL)
+// at something that 404s.
+func TestGetLatestTagIgnoresFloatingMajorAlias(t *testing.T) {
+	dir, cleanup := testCreateGitRepo()
+	defer cleanup()
+	defer testChdir(t, dir)()
+
+	git, _ := gitmod.NewGit()
+
+	exec.Command("git", "commit", "--allow-empty", "-m", "c1").Run()
+	exec.Command("git", "tag", "v0.5.24").Run()
+
+	exec.Command("git", "commit", "--allow-empty", "-m", "c2").Run()
+	exec.Command("git", "tag", "v0.5.25").Run()
+	exec.Command("git", "tag", "-f", "v1").Run()
+
+	tag, err := git.GetLatestTag()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if tag != "v0.5.25" {
+		t.Errorf("Expected v0.5.25 (highest real release), got %s", tag)
+	}
+}
+
 func TestGenerateNextTagWithOutOfOrderTags(t *testing.T) {
 	dir, cleanup := testCreateGitRepo()
 	defer cleanup()
