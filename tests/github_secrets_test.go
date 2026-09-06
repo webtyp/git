@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tinywasm/git"
+	"webtyp.com/git"
 )
 
 // fakeRunner captures the args of the last executed command

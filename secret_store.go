@@ -2,8 +2,8 @@ package git
 
 // SecretStore abstracts credential persistence for the GitHub auth flows.
 //
-// tinywasm/git deliberately depends on no concrete backend: inject the store
-// that fits your environment — the OS keyring (github.com/tinywasm/keyring)
+// webtyp/git deliberately depends on no concrete backend: inject the store
+// that fits your environment — the OS keyring (webtyp.com/keyring)
 // for interactive CLIs, an in-memory map for tests/CI, or no store at all when
 // GH_TOKEN is set. The auth flows degrade gracefully when store is nil.
 type SecretStore interface {

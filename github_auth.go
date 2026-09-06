@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/tinywasm/command"
+	"webtyp.com/command"
 	"io"
 	"net/http"
 	"net/url"
@@ -134,7 +134,7 @@ type tokenResponse struct {
 // EnsureGitHubAuth checks if GitHub is authenticated via the SecretStore, and if not, initiates Device Flow
 func (a *GitHubOAuth) EnsureGitHubAuth() error {
 	if a.store == nil {
-		return fmt.Errorf("github auth needs a SecretStore: inject one with SetStore (e.g. github.com/tinywasm/keyring) or set GH_TOKEN")
+		return fmt.Errorf("github auth needs a SecretStore: inject one with SetStore (e.g. webtyp.com/keyring) or set GH_TOKEN")
 	}
 
 	// Try to load saved token from the store
@@ -219,7 +219,7 @@ func (a *GitHubOAuth) ensureGhSessionMatches(token string) error {
 // DeviceFlowAuth initiates GitHub OAuth Device Flow and returns an access token
 func (a *GitHubOAuth) DeviceFlowAuth() (string, error) {
 	if a.store == nil {
-		return "", fmt.Errorf("github auth needs a SecretStore: inject one with SetStore (e.g. github.com/tinywasm/keyring) or set GH_TOKEN")
+		return "", fmt.Errorf("github auth needs a SecretStore: inject one with SetStore (e.g. webtyp.com/keyring) or set GH_TOKEN")
 	}
 
 	// Step 1: Request device and user codes

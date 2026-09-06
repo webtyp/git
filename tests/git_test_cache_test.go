@@ -1,9 +1,9 @@
 package git_test
 
-import "github.com/tinywasm/git"
+import "webtyp.com/git"
 
 import (
-	"github.com/tinywasm/command"
+	"webtyp.com/command"
 	"os"
 	"path/filepath"
 	"testing"

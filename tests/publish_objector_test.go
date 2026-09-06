@@ -1,7 +1,7 @@
 package git_test
 
 import (
-	"github.com/tinywasm/git"
+	"webtyp.com/git"
 	"testing"
 )
 

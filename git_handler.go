@@ -3,7 +3,7 @@ package git
 import (
 	"errors"
 	"fmt"
-	"github.com/tinywasm/command"
+	"webtyp.com/command"
 	"os"
 	"path/filepath"
 	"regexp"

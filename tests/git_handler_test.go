@@ -1,6 +1,6 @@
 package git_test
 
-import gitmod "github.com/tinywasm/git"
+import gitmod "webtyp.com/git"
 
 import (
 	"errors"

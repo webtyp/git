@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tinywasm/git"
+	"webtyp.com/git"
 )
 
 // failingTransport fails every request: tests never touch the real network.

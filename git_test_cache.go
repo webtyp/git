@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"crypto/md5"
 	"fmt"
-	"github.com/tinywasm/command"
+	"webtyp.com/command"
 	"os"
 	"path/filepath"
 	"sort"

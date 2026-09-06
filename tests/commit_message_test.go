@@ -1,6 +1,6 @@
 package git_test
 
-import "github.com/tinywasm/git"
+import "webtyp.com/git"
 
 import (
 	"testing"
@@ -68,35 +68,35 @@ func TestBuildDepsCommitMessage(t *testing.T) {
 		{
 			name: "single bump no cause",
 			bumps: []git.DepBump{
-				{ModulePath: "github.com/tinywasm/router", OldVersion: "v0.1.2", NewVersion: "v0.1.3"},
+				{ModulePath: "webtyp.com/router", OldVersion: "v0.1.2", NewVersion: "v0.1.3"},
 			},
 			rootCause: "",
-			want:      "deps: update router to v0.1.3\n\n- github.com/tinywasm/router v0.1.2 → v0.1.3",
+			want:      "deps: update router to v0.1.3\n\n- webtyp.com/router v0.1.2 → v0.1.3",
 		},
 		{
 			name: "single bump with cause",
 			bumps: []git.DepBump{
-				{ModulePath: "github.com/tinywasm/router", OldVersion: "v0.1.2", NewVersion: "v0.1.3"},
+				{ModulePath: "webtyp.com/router", OldVersion: "v0.1.2", NewVersion: "v0.1.3"},
 			},
 			rootCause: "feat: rutas con parámetros opcionales",
-			want:      "deps: update router to v0.1.3\n\ncause: feat: rutas con parámetros opcionales\n\n- github.com/tinywasm/router v0.1.2 → v0.1.3",
+			want:      "deps: update router to v0.1.3\n\ncause: feat: rutas con parámetros opcionales\n\n- webtyp.com/router v0.1.2 → v0.1.3",
 		},
 		{
 			name: "multiple bumps with cause",
 			bumps: []git.DepBump{
-				{ModulePath: "github.com/tinywasm/router", OldVersion: "v0.1.2", NewVersion: "v0.1.3"},
-				{ModulePath: "github.com/tinywasm/sse", OldVersion: "v0.1.9", NewVersion: "v0.2.0"},
+				{ModulePath: "webtyp.com/router", OldVersion: "v0.1.2", NewVersion: "v0.1.3"},
+				{ModulePath: "webtyp.com/sse", OldVersion: "v0.1.9", NewVersion: "v0.2.0"},
 			},
 			rootCause: "fix: escape de headers",
-			want:      "deps: update router, sse\n\ncause: fix: escape de headers\n\n- github.com/tinywasm/router v0.1.2 → v0.1.3\n- github.com/tinywasm/sse v0.1.9 → v0.2.0",
+			want:      "deps: update router, sse\n\ncause: fix: escape de headers\n\n- webtyp.com/router v0.1.2 → v0.1.3\n- webtyp.com/sse v0.1.9 → v0.2.0",
 		},
 		{
 			name: "unknown old version omits it",
 			bumps: []git.DepBump{
-				{ModulePath: "github.com/tinywasm/router", NewVersion: "v0.1.3"},
+				{ModulePath: "webtyp.com/router", NewVersion: "v0.1.3"},
 			},
 			rootCause: "",
-			want:      "deps: update router to v0.1.3\n\n- github.com/tinywasm/router v0.1.3",
+			want:      "deps: update router to v0.1.3\n\n- webtyp.com/router v0.1.3",
 		},
 		{
 			name:      "no bumps yields empty message",

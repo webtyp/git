@@ -11,7 +11,7 @@ REVIEWER: none
 
 ## 1. El síntoma que reporta el usuario
 
-`tinywasm -tui` pide el device flow de GitHub **una y otra vez**, aunque ya se
+`webtyp -tui` pide el device flow de GitHub **una y otra vez**, aunque ya se
 haya completado:
 
 ```
@@ -80,7 +80,7 @@ autenticar. El usuario ve el device flow y no tiene forma de saber qué pasó.
 Esto viola el principio 6 del `CONSTRUCTION_HARNESS` (error de compilación →
 diagnóstico ruidoso → nunca fallo silencioso).
 
-**Agravante fuera de este repo:** `tinywasm/app` reinicia el demonio en cada
+**Agravante fuera de este repo:** `webtyp/app` reinicia el demonio en cada
 cambio de proyecto (`app/net.go`, `shouldRestartDaemon`), y cada reinicio vuelve
 a pasar por aquí. No se arregla aquí, pero explica la frecuencia.
 
@@ -171,7 +171,7 @@ Cada rama registra su motivo con `a.log(...)`. Mensajes exactos, como constantes
 con nombre — nada de literales sueltos en la lógica.
 
 > Nota de secuencia: hasta que se publique el arreglo de
-> `tinywasm/fmt` (`Sprint(error)` devuelve `""`), un `a.log("texto:", err)`
+> `webtyp/fmt` (`Sprint(error)` devuelve `""`), un `a.log("texto:", err)`
 > imprime el prefijo y **pierde** el error. Mientras tanto, registra el texto ya
 > compuesto: `a.log("motivo: " + err.Error())`.
 

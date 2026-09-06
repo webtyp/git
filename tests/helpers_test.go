@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/tinywasm/git"
+	"webtyp.com/git"
 )
 
 // testChdir changes to the specified directory and returns a cleanup function.

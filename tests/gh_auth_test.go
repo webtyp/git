@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tinywasm/command"
-	"github.com/tinywasm/git"
+	"webtyp.com/command"
+	"webtyp.com/git"
 )
 
 const (

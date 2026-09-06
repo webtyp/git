@@ -3,7 +3,7 @@ package git
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/tinywasm/command"
+	"webtyp.com/command"
 	"os"
 	"strings"
 )

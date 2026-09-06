@@ -1,8 +1,8 @@
 # git
 <img src="docs/img/badges.svg">
 
-Git and GitHub handlers for TinyWasm projects. Extracted from `tinywasm/devflow` so
-consumers (e.g. `tinywasm/sitepub`) don't drag the whole devflow dependency tree.
+Git and GitHub handlers for WebTyp projects. Extracted from `webtyp/devflow` so
+consumers (e.g. `webtyp/sitepub`) don't drag the whole devflow dependency tree.
 
 ## Features
 
@@ -17,7 +17,7 @@ consumers (e.g. `tinywasm/sitepub`) don't drag the whole devflow dependency tree
 ## Usage
 
 ```go
-import "github.com/tinywasm/git"
+import "webtyp.com/git"
 
 g, err := git.NewGit()
 if err != nil {
@@ -27,7 +27,7 @@ if err != nil {
 
 ## Installing tools
 
-Use `goinstall` to (re)build the TinyWasm CLI tools from `tinywasm/devflow`.
+Use `goinstall` to (re)build the WebTyp CLI tools from `webtyp/devflow`.
 
 ## License
 

@@ -1,6 +1,6 @@
 package git
 
-import "github.com/tinywasm/command"
+import "webtyp.com/command"
 
 // GitHubClient defines the interface for GitHub operations.
 // This allows mocking the GitHub dependency in tests.
