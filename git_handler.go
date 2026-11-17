@@ -213,7 +213,10 @@ func (g *Git) Push(message, tag string) (PushResult, error) {
 			return PushResult{Summary: fmt.Sprintf("✅ Tag: %s, ✅ Pushed ok", pendingTag), Tag: pendingTag}, nil
 		}
 
-		return PushResult{Summary: "No changes to commit", Tag: ""}, nil
+		// If HEAD already has a tag, there is genuinely nothing to publish.
+		if _, tagErr := g.run("git", "describe", "--tags", "--exact-match", "HEAD"); tagErr == nil {
+			return PushResult{Summary: "No changes to commit", Tag: ""}, nil
+		}
 	}
 
 	// 5. Create tag - if exists, keep incrementing until we find available one

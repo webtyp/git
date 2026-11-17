@@ -52,13 +52,13 @@ func BuildDepsCommitMessage(bumps []DepBump, rootCause string) string {
 	var sb strings.Builder
 	// Title: deps: update module to version (if single) or multiple
 	if len(bumps) == 1 {
-		sb.WriteString(fmt.Sprintf("%supdate %s to %s", DepsCommitPrefix, filepathBase(bumps[0].ModulePath), bumps[0].NewVersion))
+		fmt.Fprintf(&sb, "%supdate %s to %s", DepsCommitPrefix, filepathBase(bumps[0].ModulePath), bumps[0].NewVersion)
 	} else {
 		var names []string
 		for _, b := range bumps {
 			names = append(names, filepathBase(b.ModulePath))
 		}
-		sb.WriteString(fmt.Sprintf("%supdate %s", DepsCommitPrefix, strings.Join(names, ", ")))
+		fmt.Fprintf(&sb, "%supdate %s", DepsCommitPrefix, strings.Join(names, ", "))
 	}
 
 	if rootCause != "" {
@@ -69,11 +69,11 @@ func BuildDepsCommitMessage(bumps []DepBump, rootCause string) string {
 
 	sb.WriteString("\n")
 	for _, b := range bumps {
-		sb.WriteString(fmt.Sprintf("\n- %s", b.ModulePath))
+		fmt.Fprintf(&sb, "\n- %s", b.ModulePath)
 		if b.OldVersion != "" {
-			sb.WriteString(fmt.Sprintf(" %s →", b.OldVersion))
+			fmt.Fprintf(&sb, " %s →", b.OldVersion)
 		}
-		sb.WriteString(fmt.Sprintf(" %s", b.NewVersion))
+		fmt.Fprintf(&sb, " %s", b.NewVersion)
 	}
 
 	return sb.String()
